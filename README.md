@@ -1,5 +1,4 @@
-<h4 align="center">Supermarket Inventory Management API
-Public</h4>
+<h4 align="center">Supermarket Inventory Management API</h4>
 
 <p align="center">
     <a href="https://github.com/bluesoc/Supermarket-Inventory-Management-API/commits/main">
@@ -13,6 +12,3 @@ A Django backend API used to manage, update, create and delete internal products
 It uses Django Rest Framework to handle requests and responses.
 
 (Codebase in development)
-
-`[License`
-

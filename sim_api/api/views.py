@@ -20,7 +20,7 @@ def index(request):
 
     # Note that these variables are used for cosmetics only.
     # The entire "index()" method code can be deleted at will.
-    # It does not affect the API
+    # It does not affect the API.
 
     valid_endpoints = {
         "[GET]": "view/",
@@ -66,9 +66,13 @@ def index(request):
 
     <form method="POST" action="">
         <button type="submit" name="action" value="POST">POST</button>
+        <input type="text" id="name" name="name" placeholder="Name" required size="15">
+        <input type="text" id="category" name="category" placeholder="Category" required size="10">
+        <input type="text" id="amount" name="amount" placeholder="Amount (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
     </form>
     <form method="DELETE" action="">
         <button type="submit" name="action" value="IDK">DELETE</button>
+        <input type="text" id="id" name="id" placeholder="Id Key (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
     </form>
     <form method="PUT" action="">
         <button type="submit" name="action" value="POST">UPDATE</button>
@@ -78,6 +82,7 @@ def index(request):
     return HttpResponse(index_page)
 
 
+@api_view(["GET"])
 def view(request):
     itens = Item.objects.all()
     serialized_data = serialize("json", itens)

@@ -38,7 +38,7 @@
 
     <form action="{% url 'create' %}" method="POST" >
         {% csrf_token %}
-        <button type="submit" name="action" value="POST">POST</button>
+        <button type="submit" name="action" value="POST">CREATE</button>
         <input type="text" id="name" name="name" placeholder="Name" required size="15">
         <input type="text" id="category" name="category" placeholder="Category" required size="10">
         <input type="text" id="amount" name="amount" placeholder="Amount (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">

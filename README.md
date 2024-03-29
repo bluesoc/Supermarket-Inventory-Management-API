@@ -6,9 +6,9 @@
     </a>
 </p>
 
+**(Codebase in development)**
+
 
 A Django backend API used to manage, update, create and delete internal products in a supermarket system. 
 
-It uses Django Rest Framework to handle requests and responses.
-
-(Codebase in development)
+It uses Django Rest Framework and JSON format to handle requests and responses, allowing interopability between systems.

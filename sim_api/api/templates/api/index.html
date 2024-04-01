@@ -19,7 +19,8 @@
     <h2>Django Backend API</h2>
     <h3>Supermarket Inventory Management System</h3>
 
-    <p>View the full JSON output <a href="{% url "view" %}">Here.</a> Or try <a href="/view/1">/view/1</a></p>
+    <p>View the full JSON output <a href="{% url "view" %}">Here.</a>
+        Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
     <p><a href="/admin/">Admin page</a></p>
 
     <p><b>Api Endpoints:</b></p>
@@ -27,9 +28,10 @@
     <tr>
         <th>Method</th>
         <th>Route</th>
+        <th>Parameter</th>
     </tr>
-    {% for method, endpoint in valid_endpoints.items %}
-        <tr><th>{{ method }}</th><th>{{ endpoint }}</th></tr>
+    {% for method, endpoint, param in valid_endpoints %}
+        <tr><th>{{ method }}</th><th>{{ endpoint }}</th><th>{{ param }}</th></tr>
     {% endfor %}
     </table>
 

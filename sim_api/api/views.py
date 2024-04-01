@@ -4,6 +4,7 @@ from django.urls import reverse
 import json
 from django.http import JsonResponse
 from django.core.serializers import serialize
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.decorators import api_view
 from rest_framework import serializers, status
@@ -16,16 +17,15 @@ from .serializer import ItemSerializer
 
 
 def index(request):
-    # Note that these variables are used for cosmetics only.
+    # Note that these variables are used for demonstration or cosmetics only.
     # The entire "index()" method code can be deleted at will.
-    # It does not affect the API.
 
-    valid_endpoints = {
-        "[GET]": "view/",
-        "[POST]": "create/",
-        "[DELETE]": "delete/<int:id>",
-        "[PUT]": "update/<int:id>",
-    }
+    valid_endpoints = [
+        ["[GET]", "view/", "[optional] id=int"],
+        ["[POST", "create/", "name='str' category='str' quantity='int'"],
+        ["[DELE", "delete/<int:id>", "id=int"],
+        ["[PUT]", "update/<int:id>", "id=int <updated attributes>"],
+    ]
 
     return render(
         request,
@@ -60,7 +60,7 @@ def view(request, id=None):
     return JsonResponse(json.loads(serialized_data), safe=False)
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 def create(request):
     serialized_item = ItemSerializer(data=request.data)
 
@@ -73,20 +73,29 @@ def create(request):
 
 @api_view(['PUT'])
 def update(request, id):
+    print("\n\nUPDATE REQUEST\t", "id::", id, "\n")
+    
+    print("Data: ", request.data, "\n\n")
+
     try:
-        update_item = Item.objects.get(id=id)
-        serialized_item = ItemSerializer(update_item, data=request.data)
+        update_item = Item.objects.get(pk=id)
+        serialized_item = ItemSerializer(instance=update_item, data=request.data)
 
         if serialized_item.is_valid():
             serialized_item.save()
             return Response(serialized_item.data)
 
-    except update_item.DoesNotExist:
+    except ObjectDoesNotExist: #update_item.DoesNotExist:
+        print("\n\nTALVEZ O ITEM NÂO EXISTA...\n\n")
         return Response({"message": "Item not found"}, status=status.HTTP_404_NOT_FOUND)
 
+    except Exception as ERR:
+        print("\nERR:", ERR, "\n\n")
+        return Response({"message": "Internal Exception"}, status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['DELETE'])
-def delete(request, id):
+
+@api_view(['DELETE', 'GET'])
+def delete(request, id=None):
     try:
         delete_item = Item.objects.get(id=id)
         delete_item.delete()
@@ -94,3 +103,5 @@ def delete(request, id):
 
     except: # delete_item.DoesNotExist:
         return Response({"message": "Item not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    return Response({"message": "Send me a DELETE request with a item id"}, status=status.HTTP_404_NOT_FOUND)

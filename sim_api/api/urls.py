@@ -6,6 +6,7 @@ urlpatterns = [
     path('view/', views.view, name='view'),
     path('view/<int:id>', views.view, name='view'),
     path('create/', views.create, name='create'),
+    path('delete/', views.delete, name='delete'),
     path('delete/<int:id>', views.delete, name='delete'),
     path('update/<int:id>', views.update, name='update'),
 ]

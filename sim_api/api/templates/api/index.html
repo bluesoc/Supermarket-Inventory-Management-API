@@ -21,7 +21,6 @@
 
     <p>View the full JSON output <a href="{% url "view" %}">Here.</a>
         Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
-    <p><a href="/admin/">Admin page</a></p>
 
     <p><b>Api Endpoints:</b></p>
     <table>
@@ -35,26 +34,4 @@
     {% endfor %}
     </table>
 
-    <br>
-    <p><b>Interactive API Request Interface</b></p>
-
-    <form action="{% url 'create' %}" method="POST" >
-        {% csrf_token %}
-        <button type="submit" name="action" value="POST">CREATE</button>
-        <input type="text" id="name" name="name" placeholder="Name" required size="15">
-        <input type="text" id="category" name="category" placeholder="Category" required size="10">
-        <input type="text" id="amount" name="amount" placeholder="Amount (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-    </form>
-    <br>
-    <form method="POST" action="/delete">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="delete">
-        <button type="submit">DELETE</button>
-        <input type="text" id="id" name="id" placeholder="Id Key (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-    </form>
-    <br>
-    <form method="PUT" action="">
-        <button type="submit" name="action" value="POST">UPDATE</button>
-        <input type="text" id="id" name="id" placeholder="Id Key (Integer)" required size="15" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-    </form>
 </body>

@@ -41,7 +41,6 @@ def view(request, id=None):
     if id is not None:
         try:
             item = Item.objects.filter(pk=id)
-
             if not item:
                 raise Exception
 
@@ -89,7 +88,7 @@ def update(request, id):
         return Response({"message": "Internal Exception"}, status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['DELETE', 'GET'])
+@api_view(['DELETE'])
 def delete(request, id=None):
     try:
         delete_item = Item.objects.get(id=id)

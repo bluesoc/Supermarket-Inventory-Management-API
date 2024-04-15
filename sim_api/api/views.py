@@ -17,7 +17,7 @@ from .serializer import ItemSerializer
 
 
 def index(request):
-    # Note that these variables are used for demonstration or cosmetics only.
+    # Note: This view is used for demonstration.
     # The entire "index()" method code can be deleted at will.
 
     valid_endpoints = [
@@ -73,10 +73,6 @@ def create(request):
 
 @api_view(['PUT'])
 def update(request, id):
-    print("\n\nUPDATE REQUEST\t", "id::", id, "\n")
-    
-    print("Data: ", request.data, "\n\n")
-
     try:
         update_item = Item.objects.get(pk=id)
         serialized_item = ItemSerializer(instance=update_item, data=request.data)
@@ -86,7 +82,6 @@ def update(request, id):
             return Response(serialized_item.data)
 
     except ObjectDoesNotExist: #update_item.DoesNotExist:
-        print("\n\nTALVEZ O ITEM NÂO EXISTA...\n\n")
         return Response({"message": "Item not found"}, status=status.HTTP_404_NOT_FOUND)
 
     except Exception as ERR:

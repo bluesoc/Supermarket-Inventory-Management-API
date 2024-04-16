@@ -1,14 +1,33 @@
-<h4 align="center">Supermarket Inventory Management API</h4>
+<div align="center">
+<h2>Supermarket Inventory Management API</h2>
 
-<p align="center">
-    <a href="https://github.com/bluesoc/Supermarket-Inventory-Management-API/commits/main">
-        <img src="https://img.shields.io/github/last-commit/bluesoc/Supermarket-Inventory-Management-API/main"/>
-    </a>
-</p>
+![Last Commit](https://img.shields.io/github/last-commit/bluesoc/Supermarket-Inventory-Management-API/main)
+[![Django CI](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django_manual.yml/badge.svg)](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django_manual.yml)
 
-**(Codebase in development)**
+![Django Version](https://img.shields.io/badge/Django-4.2.11-yellowgreen)
+![Repo Size](https://img.shields.io/github/repo-size/bluesoc/Supermarket-Inventory-Management-API)
+
+</div>
+<br>
+
+**🔥 (Codebase in development)**
 
 
-A Django backend API used to manage, update, create and delete internal products in a supermarket system. 
+A backend API used to manage, update and delete internal products in a inventory system.
 
-It uses Django Rest Framework and JSON format to handle requests and responses, allowing interopability between systems.
+It uses Django Rest Framework, JSON format and caching to handle requests and responses, allowing interopability between systems.
+
+***
+
+### Current API endpoints
+| Method   | Route          | Parameter                |
+|----------|----------------|--------------------------|
+| [GET]    | view/          | [optional int]           |
+| [POST]   | create/        | name, category, quantity |
+| [DELETE] | delete/<int>   | Int:id of product        |
+| [PUT]    | update/<int>   | Int:id [extra fields]    |
+| [GET]    | search?q=<str> | str=Item name            |
+
+***
+
+<a href="https://github.com/bluesoc/Supermarket-Inventory-Management-API/projects">IMS Software Engineering project page</a>

@@ -6,6 +6,8 @@ on:
     paths:
       - sim_api/**
   pull_request:
+    paths:
+      - sim_api/**
     branches: [ "main" ]
 
 jobs:

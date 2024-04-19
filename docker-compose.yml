@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  django:
+    image: django-docker:0.0.1
+    build: .
+    ports:
+      - "8000:8000"
+
+  # This ensures the database is migrated
+  db_migrations:
+    build: .
+    command: python3 /srv/sim_api/manage.py migrate

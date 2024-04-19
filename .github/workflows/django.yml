@@ -9,6 +9,7 @@ on:
     paths:
       - sim_api/**
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -30,4 +31,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        python sim_api/manage.py test

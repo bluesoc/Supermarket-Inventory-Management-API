@@ -2,7 +2,9 @@
 <h2>Supermarket Inventory Management API</h2>
 
 ![Last Commit](https://img.shields.io/github/last-commit/bluesoc/Supermarket-Inventory-Management-API/main)
-[![Django CI](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django_manual.yml/badge.svg)](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django_manual.yml)
+[![Django CI](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django.yml/badge.svg)](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/django.yml)
+
+[![Docker Image CI](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/docker-image.yml/badge.svg)](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/docker-image.yml)
 
 ![Django Version](https://img.shields.io/badge/Django-4.2.11-yellowgreen)
 ![Repo Size](https://img.shields.io/github/repo-size/bluesoc/Supermarket-Inventory-Management-API)
@@ -11,7 +13,6 @@
 <br>
 
 **🔥 (Codebase in development)**
-
 
 A backend API used to manage, update and delete internal products in a inventory system.
 
@@ -30,4 +31,4 @@ It uses Django Rest Framework, JSON format and caching to handle requests and re
 
 ***
 
-<a href="https://github.com/bluesoc/Supermarket-Inventory-Management-API/projects">IMS Software Engineering project page</a>
+<a href="https://github.com/bluesoc/Supermarket-Inventory-Management-API/projects">IMS Software Engineering Project Page</a>

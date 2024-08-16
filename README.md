@@ -6,7 +6,7 @@
 
 [![Docker Image CI](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/docker-image.yml/badge.svg)](https://github.com/bluesoc/Supermarket-Inventory-Management-API/actions/workflows/docker-image.yml)
 
-![Django Version](https://img.shields.io/badge/Django-4.2.11-yellowgreen)
+![Django Version](https://img.shields.io/badge/Django-4.2.15-yellowgreen)
 ![Repo Size](https://img.shields.io/github/repo-size/bluesoc/Supermarket-Inventory-Management-API)
 
 </div>

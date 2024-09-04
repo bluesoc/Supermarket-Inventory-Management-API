@@ -20,8 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+# Generate a random Secret Key in case "SECRET_KEY" variable is not set
+def generateSecretKey():
+    import secrets
+    return secrets.token_hex()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('SECRET_KEY', 'django-insecure-7+@q2!+94c6dxp=8=u=!0gbat7fxcp5#lwm2_gb4em84dun=%3')
+SECRET_KEY = getenv('SECRET_KEY', generateSecretKey())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -1,20 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>API Request Interface</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Interface</title>
+    <link rel="stylesheet" href="{% static 'api/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Styling provided by W3Schools - www.w3schools.com -->
-    <style>
-        td, th {
-          border: 1px solid #dddddf;
-          text-align: left;
-          padding: 8px;
-          font-weight: normal;
-        }
-        tr:nth-child(even) {
-          background-color: #dddddf;
-        }
-    </style>
+
+<section class="main-section">
 
     <h2>Django Backend API</h2>
     <h3>Supermarket Inventory Management System</h3>
@@ -22,16 +19,80 @@
     <p>View the full JSON output <a href="{% url "view" %}">Here.</a>
         Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
 
+    <p><b>Current Stock Chart</b></p>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
     <p><b>Api Endpoints:</b></p>
+
     <table>
-    <tr>
-        <th>Method</th>
-        <th>Route</th>
-        <th>Parameter</th>
-    </tr>
-    {% for method, endpoint, param in valid_endpoints %}
-        <tr><th>{{ method }}</th><th>{{ endpoint }}</th><th>{{ param }}</th></tr>
-    {% endfor %}
+        <tr>
+            <th>Method</th>
+            <th>Route</th>
+            <th>Parameter</th>
+        </tr>
+        {% for method, endpoint, param in valid_endpoints %}
+            <tr><th>{{ method }}</th><th>{{ endpoint }}</th><th>{{ param }}</th></tr>
+        {% endfor %}
     </table>
 
+</section>
+
+<script>
+    let jsonData = {
+        "labels": [],
+        "data": []
+    };
+
+    fetch('http://127.0.0.1:8000/view/')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(item => {
+            // Check if label exists
+            let index = jsonData.labels.indexOf(item.fields.category);
+
+            if (index >= 0) {
+                jsonData.data[index] += item.fields.quantity;
+            } else {
+                jsonData.labels.push( item.fields.category );
+                jsonData.data.push( item.fields.quantity );
+            }
+        });
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: jsonData.labels,
+            datasets: [{
+                label: 'Stock',
+                data: jsonData.data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+})
+.catch(error => console.error('Erro:', error));
+</script>
 </body>
+</html>

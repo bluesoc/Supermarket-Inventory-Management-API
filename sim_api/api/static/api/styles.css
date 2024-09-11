@@ -1,0 +1,14 @@
+.main-section {
+    text-align: center;
+}
+
+td, th {
+    border: 1px solid #dddddf;
+    text-align: left;
+    padding: 8px;
+    font-weight: normal;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddf;
+}

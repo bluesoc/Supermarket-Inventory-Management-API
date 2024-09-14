@@ -20,7 +20,7 @@
         Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
 
     <p><b>Current Stock Chart</b></p>
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <canvas id="myChart"></canvas>
 
     <p><b>Api Endpoints:</b></p>
 
@@ -43,7 +43,10 @@
         "data": []
     };
 
-    fetch('http://127.0.0.1:8000/view/')
+    // Get Dynamic View URL
+    const viewURL = window.location.origin + "{% url 'view' %}";
+
+    fetch(viewURL)
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {

@@ -12,3 +12,9 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddf;
 }
+
+#myChart {
+    margin: 0 auto;
+    width: 32rem;
+    height: 46rem;
+}

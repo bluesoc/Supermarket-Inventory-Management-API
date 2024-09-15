@@ -5,97 +5,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Interface</title>
-    <link rel="stylesheet" href="{% static 'api/styles.css' %}">
+    <title>SIM-API</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <link rel="stylesheet" href="{% static 'api/styles.css' %}">
 </head>
 <body>
 
-<section class="main-section">
+<section class="main-section" id="app">
+    <div class="nav-bar">
+        <div class="nav-icons">
+            <div>
+                <button @click="updateApp(1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M226.67-186.67h140v-246.66h226.66v246.66h140v-380L480-756.67l-253.33 190v380ZM160-120v-480l320-240 320 240v480H526.67v-246.67h-93.34V-120H160Zm320-352Z"/></svg>
+                </button>
+            </div>
+            <div>
+                <button @click="updateApp(2);toggleChart()">    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="#e8eaed"><path d="M653.33-160v-280H800v280H653.33Zm-246.66 0v-640h146.66v640H406.67ZM160-160v-440h146.67v440H160Z"/></svg>
+                </button>
+            </div>
+            <div>
+                <button @click="updateApp(3)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="#e8eaed"><path d="M566.67-160v-66.67h120q19.66 0 33.16-13.41 13.5-13.42 13.5-33.25v-93.34q0-37.33 22.34-67Q778-463.33 813.33-475v-10q-35.33-11-57.66-41-22.34-30-22.34-67.33v-93.34q0-19.83-13.41-33.25-13.42-13.41-33.25-13.41h-120V-800h120Q734-800 767-766.94q33 33.05 33 80.27v93.34q0 19.83 13.42 33.25 13.41 13.41 33.25 13.41H880v133.34h-33.33q-19.84 0-33.25 13.41Q800-386.5 800-366.67v93.34q0 47.22-33.06 80.27Q733.89-160 686.67-160h-120Zm-293.34 0Q226-160 193-193.06q-33-33.05-33-80.27v-93.34q0-19.83-13.42-33.25-13.41-13.41-33.25-13.41H80v-133.34h33.33q19.84 0 33.25-13.41Q160-573.5 160-593.33v-93.34q0-47.22 33.06-80.27Q226.11-800 273.33-800h120v66.67h-120q-19.66 0-33.16 13.41-13.5 13.42-13.5 33.25v93.34q0 37.33-22.34 67.33-22.33 30-57.66 41v10q35.33 11.67 57.66 41.33 22.34 29.67 22.34 67v93.34q0 19.83 13.41 33.25 13.42 13.41 33.25 13.41h120V-160h-120Z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <h2>Django Backend API</h2>
-    <h3>Supermarket Inventory Management System</h3>
+    <article>
+        <div class="main-header">
+            <h1>SIM-API</h1>
+            <h4>Inventory Management System</h4>
+        </div>
 
-    <p>View the full JSON output <a href="{% url "view" %}">Here.</a>
-        Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
+        <div id="app-page">
 
-    <p><b>Current Stock Chart</b></p>
-    <canvas id="myChart"></canvas>
+            <div v-show="index1">
+                <p>View the full JSON output <a href="{% url "view" %}">Here.</a></p>
+                <p>Or try to access <a href="/view/1">/view/&ltand an id&gt</a></p>
+            </div>
 
-    <p><b>Api Endpoints:</b></p>
+            <div v-show="index2">
+                <!-- Chart -->
+                <h3>Current Stock Chart</h3>
+                <canvas id="myChart"></canvas>
+            </div>
 
-    <table>
-        <tr>
-            <th>Method</th>
-            <th>Route</th>
-            <th>Parameter</th>
-        </tr>
-        {% for method, endpoint, param in valid_endpoints %}
-            <tr><th>{{ method }}</th><th>{{ endpoint }}</th><th>{{ param }}</th></tr>
-        {% endfor %}
-    </table>
+            <div v-show="index3">
+                <h3>API Endpoints:</h3>
+                <br>
+                <table>
+                    <tr>
+                        <th>Method</th>
+                        <th>Route</th>
+                        <th>Parameter</th>
+                    </tr>
+                    {% for method, endpoint, param in valid_endpoints %}
+                        <tr><th>{{ method }}</th><th>{{ endpoint }}</th><th>{{ param }}</th></tr>
+                    {% endfor %}
+                </table>
+            </div>
 
+        </div>
+
+
+    </article>
 </section>
 
 <script>
-    let jsonData = {
-        "labels": [],
-        "data": []
-    };
-
     // Get Dynamic View URL
     const viewURL = window.location.origin + "{% url 'view' %}";
-
-    fetch(viewURL)
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(item => {
-            // Check if label exists
-            let index = jsonData.labels.indexOf(item.fields.category);
-
-            if (index >= 0) {
-                jsonData.data[index] += item.fields.quantity;
-            } else {
-                jsonData.labels.push( item.fields.category );
-                jsonData.data.push( item.fields.quantity );
-            }
-        });
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: jsonData.labels,
-            datasets: [{
-                label: 'Stock',
-                data: jsonData.data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-})
-.catch(error => console.error('Erro:', error));
 </script>
+<script src="{% static 'api/js/app.js' %}"></script>
 </body>
 </html>

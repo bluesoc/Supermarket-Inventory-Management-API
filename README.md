@@ -1,4 +1,7 @@
 <div align="center">
+
+![Demo Image](Screenshots/demo.png)
+
 <h2>Supermarket Inventory Management API</h2>
 
 ![Last Commit](https://img.shields.io/github/last-commit/bluesoc/Supermarket-Inventory-Management-API/main)

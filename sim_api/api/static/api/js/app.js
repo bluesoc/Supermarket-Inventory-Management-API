@@ -119,7 +119,29 @@ createApp({
                     .then(response => response.json())
                     .then(data => {
                         // Well...
-                        this.jsonData = data;
+                        // this.jsonData = data;
+
+                        // [TESTING] - List database items
+                        const htmlTable = document.getElementById('itemTable');
+                        htmlTable.innerHTML = '';
+
+                        // Create table line
+                        function createTableItem( jsonData ) {
+                            return `
+                                <tr>
+                                    <td>${jsonData.fields.name}</td>
+                                    <td>${jsonData.fields.category}</td>
+                                    <td>${jsonData.fields.quantity}</td>
+                                    <td>${jsonData.fields.manufacturer}</td>
+                                    <td>${jsonData.fields.description}</td>
+                                </tr>
+                            `;
+                        }
+
+                        // Loop objects and save them into table
+                        data.forEach(jsonData => {
+                            htmlTable.innerHTML += createTableItem(jsonData);
+                        });
                     })
                     .catch(error => console.error('Error:', error));    
         },

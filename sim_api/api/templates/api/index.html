@@ -75,12 +75,21 @@
             </div>
 
             <div v-show="index4">
-                <p>[[ jsonData ]]</p>
+                <!-- Backend Table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Manufacturer</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTable"></tbody>
+                </table>
             </div>
-
         </div>
-
-
     </article>
 </section>
 

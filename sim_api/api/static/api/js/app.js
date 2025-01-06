@@ -24,6 +24,7 @@ createApp({
             this.index1 = false;
             this.index2 = false;
             this.index3 = false;
+            this.index4 = false;
 
             // Switch case for NavBar
             switch (val) {
@@ -35,6 +36,9 @@ createApp({
                     break;
                 case 3:
                     this.index3 = true;
+                    break;
+                case 4:
+                    this.index4 = true;
                     break;
                 default:
                     console.warn('Invalid', val);
@@ -57,7 +61,7 @@ createApp({
                     this.jsonData.data = [];
 
                     data.forEach(item => {
-                        // Verifica se o rótulo já existe
+                        // Check if item already exists
                         let index = this.jsonData.labels.indexOf(item.fields.category);
 
                         if (index >= 0) {
@@ -67,14 +71,13 @@ createApp({
                             this.jsonData.data.push(item.fields.quantity);
                         }
                     });
-
-                    this.renderChart(); // Renderiza o gráfico após buscar os dados
+                    this.renderChart(); // Render Chart
                 })
                 .catch(error => console.error('Erro:', error));
         },
         renderChart() {
             const ctx = document.getElementById('myChart').getContext('2d');
-            // Limpa o gráfico anterior, se existir
+            // Clear old chart
             if (this.myChart) {
                 this.myChart.destroy();
             }
@@ -110,10 +113,18 @@ createApp({
                     }
                 }
             });
-        }
+        },
+        loadJson() {
+            fetch(viewURL)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Well...
+                        this.jsonData = data;
+                    })
+                    .catch(error => console.error('Error:', error));    
+        },
     },
     mounted() {
-        // Busca os dados ao montar o componente
         this.fetchData();
     }
 }).mount('#app');
